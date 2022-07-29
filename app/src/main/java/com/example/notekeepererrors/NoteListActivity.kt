@@ -11,10 +11,24 @@ import com.example.notekeepererrors.databinding.ActivityNoteListBinding
 class NoteListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNoteListBinding
 
+    val listNote by lazy {
+        binding.contentNoteList.listNotes
+    }
+
+    val notesAdapter by lazy {
+        ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            DataManager.notes,
+        )
+
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteListBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_note_list)
+        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
 
@@ -23,13 +37,9 @@ class NoteListActivity : AppCompatActivity() {
             startActivity(activityIntent)
         }
 
-        binding.listNotes.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            DataManager.notes,
-        )
+        listNote.adapter = notesAdapter
 
-        binding.listNotes.setOnItemClickListener{parent, view, position, id ->
+        listNote.setOnItemClickListener{parent, view, position, id ->
             val activityIntent = Intent(this, MainActivity::class.java)
             activityIntent.putExtra(NOTE_POSITION, position)
             startActivity(activityIntent)
@@ -44,7 +54,7 @@ class NoteListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        (binding.listNotes.adapter as ArrayAdapter<NoteInfo>).notifyDataSetChanged()
+        notesAdapter.notifyDataSetChanged()
     }
 
 

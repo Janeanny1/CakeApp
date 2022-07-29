@@ -4,17 +4,23 @@
 
 
     <item
+        android:id="@+id/action_back"
+        android:icon="@drawable/ic_arrow_back_white_24"
+        android:orderInCategory="100"
+        android:title="@string/action_back"
+        app:showAsAction="ifRoom|withText" />
+    <item
         android:id="@+id/action_next"
         android:icon="@drawable/ic_arrow_forward_white_24"
-        android:orderInCategory="100"
-        android:title="Next"
+        android:orderInCategory="101"
+        android:title="@string/action_next"
         app:showAsAction="ifRoom|withText" />
 
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="101"
-        android:title="settings"
+        android:title="@string/action_setting"
         app:showAsAction="never" />
 
 

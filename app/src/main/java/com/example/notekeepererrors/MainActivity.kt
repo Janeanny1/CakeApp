@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.notekeepererrors.databinding.ActivityMainBinding
 
 
-
 class MainActivity : AppCompatActivity() {
     private var notePosition = POSITION_NOTE_SET
 
@@ -17,10 +16,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        // setContentView(R.layout.activity_main)
-
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
 
         val adapterCourses = ArrayAdapter<CourseInfo>(this,
@@ -41,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -76,10 +72,20 @@ class MainActivity : AppCompatActivity() {
                 moveNext()
                 true
             }
+            R.id.action_back -> {
+                moveTaskToBack()
+                true
+            }
             else -> {
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    private fun moveTaskToBack() {
+        --notePosition
+        displayNote()
+        invalidateOptionsMenu()
     }
 
     private fun moveNext() {

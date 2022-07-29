@@ -13,4 +13,7 @@
     <string name="just_a_button">just a Button</string>
     <string name="note_tittle">Note Tittle</string>
     <string name="action_settings">action_settings</string>
+    <string name="action_next">Next</string>
+    <string name="action_setting">settings</string>
+    <string name="action_back">Back</string>
 </resources>
