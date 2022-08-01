@@ -16,4 +16,7 @@
     <string name="action_next">Next</string>
     <string name="action_setting">settings</string>
     <string name="action_back">Back</string>
+    <string name="textview">TextView</string>
+    <string name="todo">TODO</string>
+    <string name="text_view">TextView</string>
 </resources>

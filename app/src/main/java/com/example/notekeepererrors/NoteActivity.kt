@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.notekeepererrors.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class NoteActivity : AppCompatActivity() {
     private var notePosition = POSITION_NOTE_SET
 
     private lateinit var binding: ActivityMainBinding

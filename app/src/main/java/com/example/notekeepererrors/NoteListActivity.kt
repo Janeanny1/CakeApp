@@ -1,19 +1,15 @@
 package com.example.notekeepererrors
 
 import DataManager
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notekeepererrors.databinding.ActivityNoteListBinding
 
 
 class NoteListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNoteListBinding
-
-    val listNote by lazy {
-        binding.contentNoteList.listNotes
-    }
 
     val notesAdapter by lazy {
         ArrayAdapter(
@@ -21,7 +17,6 @@ class NoteListActivity : AppCompatActivity() {
             android.R.layout.simple_list_item_1,
             DataManager.notes,
         )
-
 
     }
 
@@ -33,28 +28,26 @@ class NoteListActivity : AppCompatActivity() {
 
 
         binding.fab.setOnClickListener { view ->
-            val activityIntent = intent(this, MainActivity::class.java)
+            val activityIntent = intent(this, NoteActivity::class.java)
             startActivity(activityIntent)
         }
 
-        listNote.adapter = notesAdapter
 
-        listNote.setOnItemClickListener{parent, view, position, id ->
-            val activityIntent = Intent(this, MainActivity::class.java)
-            activityIntent.putExtra(NOTE_POSITION, position)
-            startActivity(activityIntent)
-        }
+        listItems.layoutManager = LinearLayoutManager (this)
+
+        listItems.adapter = NoteRecyclerAdapter(this, DataManager.notes)
     }
 
     private fun startActivity(activityIntent: Unit) = Unit
 
-    protected fun intent(packageContext: NoteListActivity, java: Class<MainActivity>) {
+    protected fun intent(packageContext: NoteListActivity, java: Class<NoteActivity>) {
 
     }
 
     override fun onResume() {
         super.onResume()
-        notesAdapter.notifyDataSetChanged()
+        listItems.adapter.notifyDataSetChanged()
+
     }
 
 
