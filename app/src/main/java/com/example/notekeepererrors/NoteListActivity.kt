@@ -3,6 +3,8 @@ package com.example.notekeepererrors
 import DataManager
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.ListAdapter
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notekeepererrors.databinding.ActivityNoteListBinding
@@ -10,6 +12,7 @@ import com.example.notekeepererrors.databinding.ActivityNoteListBinding
 
 class NoteListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNoteListBinding
+
 
     val notesAdapter by lazy {
         ArrayAdapter(
@@ -23,7 +26,7 @@ class NoteListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_note_list)
         setSupportActionBar(binding.toolbar)
 
 
@@ -51,5 +54,9 @@ class NoteListActivity : AppCompatActivity() {
     }
 
 
+}
+
+fun ListAdapter.notifyDataSetChanged() {
+    TODO("Not yet implemented")
 }
 
