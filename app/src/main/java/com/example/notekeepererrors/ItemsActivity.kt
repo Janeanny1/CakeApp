@@ -5,19 +5,42 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ListView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.notekeepererrors.databinding.ActivityItemsBinding
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
 
+class ItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    val drawerlayout : DrawerLayout by lazy{
+        binding.drawerLayout
 
-class ItemsActivity(val drawerlayout: DrawerLayout, val listItems: ListView) : AppCompatActivity() {
+    }
+    val listItems :RecyclerView by lazy {
+        binding.appBarItems.contentItems.listItems
+
+    }
+
+    val toolbar by lazy {
+        binding.appBarItems.toolbar
+    }
+
+    val fab by lazy {
+        binding.appBarItems.fab
+    }
+
+    val navview by lazy {
+        binding.navView
+    }
+
+    lateinit var adapter: RecyclerView.Adapter<*>
 
     private lateinit var binding: ActivityItemsBinding
 
@@ -41,7 +64,7 @@ class ItemsActivity(val drawerlayout: DrawerLayout, val listItems: ListView) : A
         super.onCreate(savedInstanceState)
 
         binding = ActivityItemsBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_items)
+        setContentView(binding.root)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -55,15 +78,15 @@ class ItemsActivity(val drawerlayout: DrawerLayout, val listItems: ListView) : A
         drawerlayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        navview.setNavigationItemSelectedListener(this)
 
-        nav_view.setNavigationItemSelectedListener(this)
-    }
+        }
 
     private fun displayNotes() {
         listItems.layoutManager = noteLayoutManager
         listItems.adapter = noteRecyclerAdapter
 
-        nav_view.menu.findItem(R.id.nav_notes).isChecked = true
+        navview.menu.findItem(R.id.nav_notes).isChecked = true
 
     }
 
@@ -71,7 +94,7 @@ class ItemsActivity(val drawerlayout: DrawerLayout, val listItems: ListView) : A
         listItems.layoutManager = courseLayoutManager
         listItems.adapter = courseRecyclerAdapter
 
-        nav_view.main.findItem(R.id.nav_courses).ischecked = true
+        navview.menu.findItem(R.id.nav_courses).isChecked = true
     }
 
     private fun intent(activity: ItemsActivity, java: Class<NoteActivity>): Intent? = intent
@@ -79,7 +102,7 @@ class ItemsActivity(val drawerlayout: DrawerLayout, val listItems: ListView) : A
 
     override fun onResume() {
         super.onResume()
-        listItems.adapter.notifyDataSetChanged()
+        listItems.adapter?.notifyDataSetChanged()
     }
 
     override fun onBackPressed() {
@@ -125,7 +148,7 @@ class ItemsActivity(val drawerlayout: DrawerLayout, val listItems: ListView) : A
     }
 
     private fun handleSelection(message: String) {
-        snackbar.make(listItems, message,snackbar.LENGTH_LONG).show()
+        Snackbar.make(listItems, message,Snackbar.LENGTH_LONG).show()
 
     }
 

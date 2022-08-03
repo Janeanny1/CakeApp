@@ -4,7 +4,6 @@ import DataManager
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListAdapter
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notekeepererrors.databinding.ActivityNoteListBinding
@@ -21,6 +20,10 @@ class NoteListActivity : AppCompatActivity() {
             DataManager.notes,
         )
 
+    }
+
+    val listItems by lazy {
+        binding.contentNoteList.listItems
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +52,7 @@ class NoteListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        listItems.adapter.notifyDataSetChanged()
+        listItems.adapter?.notifyDataSetChanged()
 
     }
 
